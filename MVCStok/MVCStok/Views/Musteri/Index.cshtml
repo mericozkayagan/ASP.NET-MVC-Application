@@ -1,0 +1,43 @@
+﻿@using MVCStok.Models.Entity
+@model List<TBLMUSTERI>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@using (Html.BeginForm("Index", "Musteri", FormMethod.Get))
+{
+    <p>
+        <b>Aranacak müşteri adı:</b> @Html.TextBox("p")
+        <input type="submit" value="Ara"/>
+    </p>
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>Musteri ID</th>
+        <th>Musteri Ad</th>
+        <th>Musteri Soyad</th>
+        <th>SİL</th>
+        <th>GÜNCELLE</th>
+        <th>ALERT</th>
+    </tr>
+
+    <tbody>
+
+        @foreach (var mst in Model)
+        {
+            <tr>
+                <td>@mst.MUSTERIID</td>
+                <td>@mst.MUSTERIAD</td>
+                <td>@mst.MUSTERISOYAD</td>
+                <td><a href="/MUSTERI/SIL/@mst.MUSTERIID" class="btn btn-danger">SİL</a></td>
+                <td><a href="/MUSTERI/Musterigetir/@mst.MUSTERIID" class="btn btn-success">GUNCELLE</a></td>
+                <td>@Html.ActionLink("SİL Buttonu", "SIL", new { id = mst.MUSTERIID }, new { @class = "btn btn-warning", onclick = "return confirm('Gerçekten silmek istiyor musunuz?')" })</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<a href="/Musteri/Yenimusteri/" class="btn btn-primary">Yeni Müşteri Ekle</a>
+
